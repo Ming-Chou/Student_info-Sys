@@ -1,7 +1,7 @@
 <?php //Reject SQL injection
 
 function inject_check($sql_str) {
-	return preg_match('select | insert | and | or | update | delete | \- | \" | \' | \/ | \* |\*| \.\.\/ | \.\/ | union | into | load_file | outfile', $sql_str);
+	return preg_match('select | insert | and | or | update | delete | \- | \" | \' | \/ | \* |\*| \.\.\/ | \.\/ | union | into | load_file | outfile | \< | \> | javascript | php', $sql_str);
 } 
 
 function inject_check_for_date($sql_str) {
@@ -40,15 +40,23 @@ function post_check($post) {
 <?php
 
 require_once("server.php");
-$id = $_POST['UID'];//從上頁得到ID
-$name = $_POST['name'];//姓名
-$birth = $_POST['bir'];//生日
-$phone = $_POST['phone'];//手機號碼
-$email = $_POST['email'];//電子郵件
-$address=$_POST['add'];//地址
-$company=$_POST['com'];//公司
+$id = htmlspecialchars($_POST['UID']);//從上頁得到ID
+$name = htmlspecialchars($_POST['name']);//姓名
+$birth = htmlspecialchars($_POST['bir']);//生日
+$phone = htmlspecialchars($_POST['phone']);//手機號碼
+$email = htmlspecialchars($_POST['email']);//電子郵件
+$address=htmlspecialchars($_POST['add']);//地址
+$company=htmlspecialchars($_POST['com']);//公司
 $vrcd=$_POST['vrcd'];//Password
 $info=$_POST['info'];//是否顯示資料
+
+if(inject_check($id) | inject_check($name) | inject_check($birth) | inject_check($phone) | inject_check($email) | inject_check($address) | inject_check($company))
+{
+	echo "輸入非法字元";
+	header("refresh:1;url=edit_profile.php");
+	die();
+}
+
 foreach ($id as $key => $value){
 	if($info[$key]){//更新資料庫 將更改後的資料匯入
 		$sqlcode = "update data set Name='" . $name[$key] . "',Birth='" . $birth[$key] . "',Phone='" . $phone[$key] . "',Email='" . $email[$key] . "',Address='" . $address[$key] . "',Company='" . $company[$key] . "',user_verification_code='" . $vrcd[$key] . "',info='" . $info[$key] . "' where UID=" . $value;

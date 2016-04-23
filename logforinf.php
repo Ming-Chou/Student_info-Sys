@@ -16,7 +16,7 @@
 
 if(htmlspecialchars($_SESSION["login"])==true)
 {
-	header("refresh:1;url=edit_profile.php");
+	header("refresh:0;url=edit_profile.php");
 }
 else if(htmlspecialchars($_SESSION["loginwrang"]>4))
 {

@@ -29,7 +29,7 @@ if(htmlspecialchars($_SESSION["login"]==true)){
 			echo "E-mail&nbsp;:&nbsp;<input type='text' name='email[]' size='30' value='" . $list['Email']  . "'></a><br><br>";
 			echo "地址&nbsp;:&nbsp;<input type='text' name='add[]' size='50' value='" . $list['Address']  . "'></a>&nbsp;&nbsp;<br><br>";
 			echo "公司&nbsp;:&nbsp;<input type='text' name='com[]' value='" . $list['Company']  . "'></a><br><br><br>";
-			echo "密碼&nbsp;:&nbsp;<input type='password' size='12' maxlength='12' name='vrcd[]' value='" . $list['user_verification_code']  . "'></a>密碼只能為英文或數字,最多12個字<br><br>";
+			//echo "密碼&nbsp;:&nbsp;<input type='password' size='12' maxlength='12' name='vrcd[]' value='" . $list['user_verification_code']  . "'></a>密碼只能為英文或數字,最多12個字<br><br>";
 			echo "是否選擇公開:<input type='radio' name='info[]' value='y' checked='true'>是";
 			echo "<input type='radio' name='info[]' value='n'></a>否&nbsp;&nbsp;&nbsp;&nbsp;目前設定&nbsp;:&nbsp;" . $list['info'];
 		}
